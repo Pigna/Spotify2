@@ -1,0 +1,73 @@
+﻿@using Spotify.Models
+@model List<Spotify.Models.Playlist>
+@{
+    ViewBag.Title = "Playlists";
+}
+<!--Gives the menu-->
+@Html.Partial("_YourMusic")
+<h2>Playlists</h2>
+
+<!--Add new playlist-->
+<!--List of all playlists-->
+<div id="playlists">
+    <ul>
+        <li>
+            @Html.ActionLink("Create New Playlist", "NewPlaylist")
+        </li>
+        @foreach (var item in Model)
+        {
+            <li>
+                @Html.ActionLink(item.Name, "Index", new { playlistId = item.ID})
+            </li>
+        }
+    </ul>
+</div>
+<!--This view displays a playlist-->
+<div id="playlist">
+    <table class="table">
+        <tr>
+            <th>
+                Naam
+            </th>
+            <th>
+                Duratie
+            </th>
+            <th>
+                Release
+            </th>
+            <th>
+                Artist
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+        @foreach (Song song in Model[ViewBag.PlaylistIndex].GetSongList())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => song.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => song.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => song.Release)
+                </td>
+                <td>
+                    @foreach (Artist artist in song.Artists)
+                    {
+                        @Html.ActionLink(artist.Name, "Index", "Artist", new {artistId = artist.ID},null)
+                    }
+                </td>
+                <td>
+                    @if (true)//Login session == owner of playlist
+                    {
+                        @Html.ActionLink("Remove from playlist", "Index", new { songId = song.ID })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+<!--Html.Partial("_Playlist");-->

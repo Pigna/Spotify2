@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Spotify.Models.Artist>
+@{
+    ViewBag.Title = "Following Artists";
+}
+<!--Gives the menu-->
+@Html.Partial("_YourMusic")
+<h2>Playlists</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="@Html.DisplayFor(modelItem => item.Image)" alt="Geen afbeelding beschikbaar" height="32" width="32"/>
+        </td>
+        <td>
+        @Html.ActionLink(item.Name, "Index", "Artist", new { area = "", artistId = item.ID },null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Publisher)
+        </td>
+    </tr>
+}
+</table>
