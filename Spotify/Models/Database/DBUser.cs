@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 
 namespace Spotify.Models.Database
 {
-    class DBUser : DBContext
+    public class DBUser : DBContext
     {
         public User GetUserById(int id)
         {
